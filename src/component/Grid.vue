@@ -11,7 +11,12 @@
     </el-row>
     <div class="grid-results">
       <el-row :gutter="20" v-for="user in allUsers" :key="user.email">
-        <el-col :span="8"
+        <el-col :span="0.5"
+          ><div class="grid-content delete" @click="onDelete(user)">
+            -
+          </div></el-col
+        >
+        <el-col :span="7"
           ><div class="grid-content">
             <input
               class="grid-content-input"
@@ -46,7 +51,11 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Grid",
   methods: {
-    ...mapActions(["fetchUsers"])
+    ...mapActions(["fetchUsers"]),
+    ...mapActions(["deleteUser"]),
+    onDelete(user) {
+      this.deleteUser([user.name, user.username, user.email]);
+    }
   },
   computed: mapGetters(["allUsers"]),
   created() {
@@ -56,7 +65,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap')
+@import url('https://fonts.googleapis.com/css?family=Quicksand|Stalinist+One&display=swap')
 .grid
   width: 95vw
 
@@ -68,8 +77,8 @@ export default {
 
   background: white
 
-  border: 10px solid #EAABDB
-  box-shadow: 0 0 5px darken(#EAABDB, 25%)
+  border: 10px solid #FFCDB2
+  box-shadow: 0 0 5px darken(#FFCDB2, 25%)
 
   &-header
     border-radius: 4px
@@ -78,11 +87,11 @@ export default {
     align-items: center
     justify-content: center
 
-    border: 1px solid #EAABDB
-    background: #EAABDB
+    border: 1px solid darken(#FFCDB2, 25%)
+    background: #FFCDB2
 
-    color: white
-    font-size: 1em
+    color: darken(#FFCDB2, 45%)
+    font-size: 1.1em
     letter-spacing: 2px
     text-align: center
 
@@ -93,9 +102,9 @@ export default {
     align-items: center
     justify-content: center
 
-    border: 1px solid #EAABDB
+    border: 1px solid darken(#FFCDB2, 30%)
 
-    color: #EAABDB
+    color: darken(#FFCDB2, 30%)
     letter-spacing: 2px
     font-size: 0.9em
     text-align: center
@@ -104,7 +113,30 @@ export default {
     transition: 0.5s ease
 
     &:hover
-      border: 1px dashed #EAABDB
+      border: 1px dashed darken(#FFCDB2, 30%)
+
+    &.delete
+      border-radius: 4px
+      display: flex
+      align-items: center
+      justify-content: center
+
+      padding: 5px 10px 1px 10px
+
+      margin-left: 0px
+      margin-right: -5px
+      color: darken(#FFCDB2, 30%)
+      background: #FFCDB2
+      font-size: 0.9em
+      font-family: 'Stalinist One', cursive
+
+      cursor: pointer
+      transition: 0.5s ease
+
+      &:hover
+        color: black
+        background: white
+        border: 1px dashed black
 
     &-input
       height: 100%
@@ -115,8 +147,9 @@ export default {
 
       text-align: center
       font-size: 1em
+      letter-spacing: 2px
 
-      color: #EAABDB
+      color: darken(#FFCDB2, 30%)
 
       &::placeholder
         color: grey
@@ -131,10 +164,10 @@ export default {
     &::-webkit-scrollbar
       background: none
       width: 5px
-      border: 1px solid #EAABDB
+      border: 1px solid darken(#FFCDB2, 30%)
 
     &::-webkit-scrollbar-thumb
-      background: #EAABDB
+      background: darken(#FFCDB2, 30%)
 
 .el-row
   margin-bottom: 20px

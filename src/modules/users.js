@@ -1,11 +1,15 @@
 import axios from "axios";
 
 const state = {
-  users: []
+  users: [],
+  notice: null,
+  recentDeletion: null
 };
 
 const getters = {
-  allUsers: state => state.users
+  allUsers: state => state.users,
+  notice: state => state.notice,
+  deletion: state => state.recentDeletion
 };
 
 const actions = {
@@ -21,35 +25,32 @@ const actions = {
       email
     });
 
-    commit("newUser", res.data);
+    commit("addUser", res.data);
   },
-  async deleteUser({ commit }, id) {
-    await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+  async deleteUser({ commit }, [name, username, email]) {
+    await axios.delete(`https://jsonplaceholder.typicode.com/users/${email}`);
 
-    commit("removeUser", id);
-  },
-  async updateUser({ commit }, updUser) {
-    const res = await axios.put(
-      `https://jsonplaceholder.typicode.com/users/${updUser.id}`,
-      updUser
-    );
-
-    console.log(response.data);
-
-    commit("updateUser", response.data);
+    commit("deleteUser", [name, username, email]);
   }
 };
 
 const mutations = {
   setUsers: (state, users) => (state.users = users),
-  newUser: (state, user) => state.users.unshift(user),
-  removeUser: (state, id) =>
-    (state.users = state.users.filter(user => user.id !== id)),
-  updateUser: (state, updUser) => {
-    const index = state.users.findIndex(user => user.id === updUser.id);
-    if (index !== -1) {
-      state.users.splice(index, 1, updUser);
+  addUser: (state, newUser) => {
+    const index = state.users.findIndex(user => user.email === newUser.email);
+    if (!newUser.name || !newUser.username || !newUser.email) {
+      return (state.notice = "Please fill out all the fields.");
     }
+    if (index === -1) {
+      state.users.unshift(newUser);
+      state.notice = null;
+    } else {
+      state.notice = "User with Email already exists.";
+    }
+  },
+  deleteUser: (state, oldUser) => {
+    state.users = state.users.filter(user => user.email !== oldUser[2]);
+    state.recentDeletion = oldUser;
   }
 };
 

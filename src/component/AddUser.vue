@@ -1,5 +1,9 @@
 <template>
   <div class="add">
+    <div class="add__heading">
+      <p class="add__heading-header">+ add user</p>
+      <p class="add__heading-notice">{{ notice }}</p>
+    </div>
     <form class="add__form" @submit="onSubmit">
       <input
         class="add__form-input"
@@ -25,7 +29,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AddUser",
@@ -42,7 +46,8 @@ export default {
       e.preventDefault();
       this.addUser([this.name, this.username, this.email]);
     }
-  }
+  },
+  computed: mapGetters(["notice"])
 };
 </script>
 
@@ -50,10 +55,29 @@ export default {
 .add
   width: 95vw
 
-  background: #EAABDB
+  background: (#FFCDB2, 15%)
   padding: 10px
 
-  box-shadow: 0 0 5px darken(#EAABDB, 25%)
+  box-shadow: 0 0 5px darken(#FFCDB2, 25%)
+
+  &__heading
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    margin: 0 0 5px 5px
+
+    &-header
+      color: white
+      padding: 0 10px 3px 10px
+      border-left: 2px solid white
+
+      letter-spacing: 2px
+
+    &-notice
+      color: black
+      margin-right: 5px
+
+      letter-spacing: 2px
 
   &__form
     display: grid
@@ -64,7 +88,7 @@ export default {
       width: 100%
       padding: 10px
 
-      border: 1px solid #EAABDB
+      border: 1px solid #FFCDB2
       border-radius: 5px
 
       color: black
@@ -76,11 +100,11 @@ export default {
     &-submit
       padding: 10px
 
-      color: darken(#EAABDB, 25%)
+      color: darken(#FFCDB2, 25%)
       font-size: 1.3em
       letter-spacing: 2px
 
-      border: 1px solid darken(#EAABDB, 25%)
+      border: 1px solid darken(#FFCDB2, 25%)
       border-radius: 5px
 
       outline: none
@@ -89,8 +113,8 @@ export default {
       transition: 0.5s ease
 
       &:hover
-        background: #EAABDB
-        box-shadow: 0 0 5px darken(#EAABDB, 25%)
+        background: #FFCDB2
+        box-shadow: 0 0 5px darken(#FFCDB2, 25%)
         border: 1px solid white
         color: white
 </style>
