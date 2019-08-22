@@ -1,6 +1,18 @@
+<!--
+  GRID VIEW:
+  - Grid created with ELEMENT UI (a VUEJS UI Toolkit)
+  - "gutter": space between items in row or col
+  - "span": length of col or width of row
+  * Grid Header ("Name" "Username" "Email")
+  * Grid Results (Populated by vuex store)
+  ** Delete Button (Handles User deletion)
+  ** Name Input
+  ** Username Input
+  ** Email Input
+-->
 <template>
   <div class="grid">
-    <el-row :gutter="20">
+    <el-row :gutter="10">
       <el-col :span="8"><div class="grid-header">name</div></el-col>
       <el-col :span="8"
         ><div class="grid-header">
@@ -10,13 +22,13 @@
       <el-col :span="8"><div class="grid-header">email</div></el-col>
     </el-row>
     <div class="grid-results">
-      <el-row :gutter="20" v-for="user in allUsers" :key="user.email">
+      <el-row :gutter="10" v-for="user in allUsers" :key="user.email">
         <el-col :span="0.5"
           ><div class="grid-content delete" @click="onDelete(user)">
             -
           </div></el-col
         >
-        <el-col :span="7"
+        <el-col :span="8"
           ><div class="grid-content">
             <input
               class="grid-content-input"
@@ -24,7 +36,7 @@
               placeholder="edit name"
             /></div
         ></el-col>
-        <el-col :span="8"
+        <el-col :span="7" :xs="4" :sm="4" :md="5" :lg="6"
           ><div class="grid-content">
             <input
               class="grid-content-input"
@@ -32,7 +44,7 @@
               placeholder="edit username"
             /></div
         ></el-col>
-        <el-col :span="8"
+        <el-col :span="10" :xs="9" :sm="9" :md="9"
           ><div class="grid-content">
             <input
               class="grid-content-input"
@@ -45,6 +57,11 @@
   </div>
 </template>
 
+<!--
+  STATE MANAGEMENT:
+  * Fetching User from store (HTTP req to database)
+  * Deletes User from Users array
+-->
 <script>
 import { mapGetters, mapActions } from "vuex";
 
@@ -104,11 +121,6 @@ export default {
 
     border: 1px solid darken(#FFCDB2, 30%)
 
-    color: darken(#FFCDB2, 30%)
-    letter-spacing: 2px
-    font-size: 0.9em
-    text-align: center
-
     cursor: text
     transition: 0.5s ease
 
@@ -148,26 +160,34 @@ export default {
       text-align: center
       font-size: 1em
       letter-spacing: 2px
+      word-wrap: break-word
 
       color: darken(#FFCDB2, 30%)
+
+      @media(max-width: 1000px)
+        font-size: 0.9em
+        letter-spacing: 1px
 
       &::placeholder
         color: grey
 
   &-results
-    max-height: 35vw
-    overflow-y: auto
+    max-height: 30vw
+    overflow-y: scroll
     overflow-x: hidden
 
-    padding-right: 5px
+    @media(max-height: 1000px)
+      height: 20vh
+
+    @media(max-height: 500px)
+      height: 10vh
 
     &::-webkit-scrollbar
-      background: none
-      width: 5px
-      border: 1px solid darken(#FFCDB2, 30%)
+      background: darken(#FFCDB2, 30%)
 
     &::-webkit-scrollbar-thumb
-      background: darken(#FFCDB2, 30%)
+      background: white
+      border: 1px solid darken(#FFCDB2, 30%)
 
 .el-row
   margin-bottom: 20px

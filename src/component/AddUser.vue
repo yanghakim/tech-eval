@@ -1,3 +1,10 @@
+<!--
+  ADD USER VIEW:
+  * Title (+ add user)
+  * Notice (Dynamic rendering of error for duplicate user emails)
+  * Form (Name, Username, Email fields)
+  * Submit Button (Form Handler)
+-->
 <template>
   <div class="add">
     <div class="add__heading">
@@ -28,6 +35,11 @@
   </div>
 </template>
 
+<!--
+  STATE MANAGEMENT:
+  * Adding User when SUBMIT button is clicked
+  ** Retreives ERROR NOTICE from store
+-->
 <script>
 import { mapActions, mapGetters } from "vuex";
 

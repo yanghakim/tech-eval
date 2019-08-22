@@ -31,6 +31,9 @@ const actions = {
     await axios.delete(`https://jsonplaceholder.typicode.com/users/${email}`);
 
     commit("deleteUser", [name, username, email]);
+  },
+  async clearDeletionQueue({ commit }) {
+    commit("clearDeletionQueue");
   }
 };
 
@@ -51,7 +54,8 @@ const mutations = {
   deleteUser: (state, oldUser) => {
     state.users = state.users.filter(user => user.email !== oldUser[2]);
     state.recentDeletion = oldUser;
-  }
+  },
+  clearDeletionQueue: state => (state.recentDeletion = null)
 };
 
 export default {
