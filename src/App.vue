@@ -1,29 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <AddUser />
+    <Grid />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import Grid from "./component/Grid.vue";
+import AddUser from "./component/AddUser.vue";
+
+export default {
+  name: "App",
+  components: {
+    Grid,
+    AddUser
   }
-}
+};
+</script>
+
+<style lang="sass">
+@keyframes fadeOut
+  0%
+    filter: brightness(1)
+  100%
+    transform: scale(1.1)
+    filter: brightness(60%)
+
+*
+  font-family: "Quicksand", sans-serif
+  padding: 0
+  box-sizing: border-box
+
+body
+  background: darken(#EAABDB, 5%)
+
+  height: 100vh
+
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
+  overflow: hidden
 </style>
