@@ -1,4 +1,4 @@
-# encapturemd-eval
+# tech-eval
 
 ## How to Use
 * Add users (name, username, email) with the form on TOP of the UI 
